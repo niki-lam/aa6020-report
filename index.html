@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AA6020 铝合金供应商调研报告</title>
+<style>
+  :root{
+    --ink:#111111; --paper:#ffffff; --red:#d6261f;
+    --gray:#6e6e6e; --hairline:#dcdcdc; --hairline-dark:#b8b8b8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:"Helvetica Neue",Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+       background:var(--paper);color:var(--ink);line-height:1.7;font-size:15px;
+       -webkit-font-smoothing:antialiased}
+  a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--red)}
+  a:hover{color:var(--red)}
+
+  /* ===== 页眉 ===== */
+  header{border-bottom:3px solid var(--ink)}
+  .header-grid{max-width:1120px;margin:0 auto;padding:48px 24px 32px;
+    display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px}
+  .h-kicker{grid-column:1/13;font-size:12px;letter-spacing:.3em;color:var(--red);
+    font-weight:700;margin-bottom:20px}
+  .h-title{grid-column:1/9;font-size:52px;font-weight:700;line-height:1.12;letter-spacing:-.01em}
+  .h-title em{font-style:normal;color:var(--red)}
+  .h-meta{grid-column:9/13;align-self:end;font-size:13px;line-height:2}
+  .h-meta .row{display:flex;justify-content:space-between;border-top:1px solid var(--hairline);padding:4px 0;gap:12px}
+  .h-meta .row:first-child{border-top:2px solid var(--ink)}
+  .h-meta .k{color:var(--gray);white-space:nowrap}
+  .h-meta .v{font-weight:600;text-align:right}
+
+  /* ===== 布局 ===== */
+  .layout{max-width:1120px;margin:0 auto;padding:0 24px;
+    display:grid;grid-template-columns:repeat(12,1fr);gap:0 24px}
+  nav.toc{grid-column:1/3;padding-top:56px;position:sticky;top:0;align-self:start;
+    font-size:12.5px;line-height:1.5}
+  nav.toc .toc-head{font-size:11px;letter-spacing:.25em;color:var(--gray);
+    border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:10px}
+  nav.toc a{display:flex;gap:8px;padding:5px 0;border:none;color:var(--gray)}
+  nav.toc a:hover{color:var(--red)}
+  nav.toc a .n{color:var(--red);font-weight:700;min-width:20px}
+  main{grid-column:3/13}
+
+  section{padding:56px 0 8px;border-top:1px solid var(--hairline);margin-top:48px}
+  section:first-child{border-top:none;margin-top:0}
+  .sec-head{display:grid;grid-template-columns:80px 1fr;align-items:baseline;margin-bottom:28px}
+  .sec-no{font-size:40px;font-weight:700;color:var(--red);line-height:1}
+  h2{font-size:26px;font-weight:700;letter-spacing:.01em}
+  h3{font-size:16px;font-weight:700;margin:36px 0 14px;padding-top:12px;border-top:2px solid var(--ink)}
+  h3 .h3-no{color:var(--red);margin-right:8px}
+  p{margin-bottom:12px;max-width:760px}
+  .lede{font-size:18px;line-height:1.9;max-width:760px}
+  .note{font-size:13px;color:var(--gray);max-width:760px}
+
+  /* ===== 核心判断 ===== */
+  .verdict{border-left:6px solid var(--red);padding:6px 0 6px 24px;margin-bottom:40px}
+  .verdict .v-main{font-size:21px;font-weight:700;line-height:1.7;max-width:760px}
+  .verdict .v-sub{font-size:14px;color:var(--gray);margin-top:10px;max-width:760px}
+
+  /* ===== Top3 编号列表 ===== */
+  .top3{border-top:2px solid var(--ink)}
+  .rank-row{display:grid;grid-template-columns:80px 240px 1fr 220px;gap:0 24px;
+    padding:18px 0;border-bottom:1px solid var(--hairline);align-items:start}
+  .rank-row .no{font-size:34px;font-weight:700;line-height:1}
+  .rank-row:nth-child(1) .no{color:var(--red)}
+  .rank-row .who .name{font-size:17px;font-weight:700}
+  .rank-row .who .path{font-size:12.5px;color:var(--gray);margin-top:2px}
+  .rank-row .why{font-size:13.5px;line-height:1.75}
+  .rank-row .caution{font-size:12.5px;color:var(--gray);border-left:2px solid var(--red);padding-left:12px;line-height:1.7}
+  .rank-row .caution b{color:var(--red)}
+
+  /* ===== 表格 ===== */
+  .table-wrap{overflow-x:auto;margin-bottom:6px}
+  table{border-collapse:collapse;width:100%;min-width:980px;font-size:13px;margin:8px 0 4px}
+  table.slim{min-width:560px}
+  thead th{border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);
+    text-align:left;font-weight:700;padding:8px 12px 8px 0;white-space:nowrap;font-size:12.5px;letter-spacing:.03em}
+  tbody td{border-bottom:1px solid var(--hairline);padding:8px 12px 8px 0;vertical-align:top}
+  tbody tr:last-child td{border-bottom:2px solid var(--ink)}
+  td.num,th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .hl{font-weight:700}
+  .red{color:var(--red);font-weight:700}
+  .src{font-size:11px;letter-spacing:.05em;white-space:nowrap}
+  .src-std{color:#9a9a9a}
+  .src-orig{color:var(--red);font-weight:700}
+  .src-web{color:var(--ink);font-weight:600}
+
+  /* ===== 规则说明块 ===== */
+  .rule{border-top:2px solid var(--ink);border-bottom:1px solid var(--hairline);
+    padding:14px 0;font-size:13.5px;margin:4px 0 20px;max-width:860px}
+  .rule b{font-weight:700}
+  .rule ul{margin:6px 0 0 18px}
+  .rule li{margin-bottom:6px;line-height:1.7}
+
+  /* ===== 漏斗 ===== */
+  .funnel{margin:12px 0 8px;max-width:860px}
+  .f-row{display:grid;grid-template-columns:110px 1fr 300px;gap:0 20px;align-items:center;margin-bottom:10px}
+  .f-num{font-size:30px;font-weight:700;text-align:right;line-height:1;font-variant-numeric:tabular-nums}
+  .f-bar{height:34px;background:var(--ink);display:flex;align-items:center}
+  .f-bar span{color:#fff;font-size:12.5px;padding-left:12px;white-space:nowrap}
+  .f-row.final .f-num{color:var(--red)}
+  .f-row.final .f-bar{background:var(--red)}
+  .f-cond{font-size:12px;color:var(--gray);line-height:1.5}
+  .w100{width:100%}.w74{width:74%}.w48{width:48%}.w26{width:26%;min-width:150px}.w26f{width:26%;min-width:200px}
+
+  /* ===== 脚注 ===== */
+  .footnote{font-size:12.5px;color:var(--gray);border-top:1px solid var(--hairline-dark);
+    padding-top:10px;margin-top:14px;max-width:860px;line-height:1.7}
+  .footnote b{color:var(--ink)}
+
+  /* ===== 联系实录 ===== */
+  .contact{border-top:2px solid var(--ink);margin-bottom:28px;max-width:860px}
+  .c-head{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--ink)}
+  .c-no{font-size:22px;font-weight:700;color:var(--red)}
+  .c-name{font-size:16px;font-weight:700}
+  .c-status{margin-left:auto;font-size:12.5px;color:var(--gray);white-space:nowrap}
+  .c-status.red{color:var(--red);font-weight:700}
+  .c-row{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:7px 0;
+    border-bottom:1px solid var(--hairline);font-size:13.5px}
+  .c-row:last-child{border-bottom:none}
+  .c-k{color:var(--gray);font-size:12.5px;white-space:nowrap}
+  .live-link{display:inline-block;margin:6px 0 22px;font-size:13.5px;font-weight:700}
+
+  /* ===== 信息来源 ===== */
+  .src-group{border-top:2px solid var(--ink);max-width:860px;margin-bottom:24px}
+  .src-group .sg-title{font-size:14px;font-weight:700;padding:10px 0;border-bottom:1px solid var(--ink)}
+  .src-group .sg-title .n{color:var(--red);margin-right:8px}
+  .src-item{display:grid;grid-template-columns:1fr;gap:0;padding:7px 0;border-bottom:1px solid var(--hairline);font-size:13px}
+
+  footer{max-width:1120px;margin:64px auto 0;padding:20px 24px 32px;border-top:2px solid var(--ink);
+    font-size:12px;color:var(--gray);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  @media (max-width:900px){
+    .header-grid,.layout{grid-template-columns:1fr}
+    .h-title{grid-column:1/13;font-size:34px}
+    .h-meta{grid-column:1/13;margin-top:24px}
+    nav.toc{display:none}
+    main{grid-column:1/13}
+    .rank-row{grid-template-columns:48px 1fr}
+    .rank-row .why,.rank-row .caution{grid-column:2/3;margin-top:8px}
+    .f-row{grid-template-columns:64px 1fr}
+    .f-cond{grid-column:2/3;margin:2px 0 8px}
+    .sec-head{grid-template-columns:56px 1fr}
+    .sec-no{font-size:30px}
+  }
+  @media print{
+    nav.toc{display:none}
+    main{grid-column:1/13}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-grid">
+    <div class="h-kicker">SUPPLIER RESEARCH — 2026.09</div>
+    <h1 class="h-title">AA6020 铝合金<br>供应商<em>调研报告</em></h1>
+    <div class="h-meta">
+      <div class="row"><span class="k">调研日期</span><span class="v">2026-09-14</span></div>
+      <div class="row"><span class="k">目标牌号</span><span class="v">AA6020 · A96020</span></div>
+      <div class="row"><span class="k">材料特性</span><span class="v">无铅易切削 6xxx · Sn 0.9–1.5%</span></div>
+      <div class="row"><span class="k">目标形态</span><span class="v">冷精整圆棒 T8</span></div>
+      <div class="row"><span class="k">目标直径</span><span class="v">Ø25–64 mm</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="toc-head">CONTENTS</div>
+    <a href="#s0"><span class="n">00</span>结论摘要</a>
+    <a href="#s1"><span class="n">01</span>材料简介</a>
+    <a href="#s2"><span class="n">02</span>筛选漏斗</a>
+    <a href="#s3"><span class="n">03</span>供应商全览</a>
+    <a href="#s4"><span class="n">04</span>联系实录</a>
+    <a href="#s5"><span class="n">05</span>结论建议</a>
+    <a href="#s6"><span class="n">06</span>信息来源</a>
+    <a href="#s7"><span class="n">附</span>数据口径</a>
+  </nav>
+
+  <main>
+    <!-- ================= 00 结论摘要 ================= -->
+    <section id="s0">
+      <div class="sec-head"><div class="sec-no">00</div><h2>结论摘要</h2></div>
+      <div class="verdict">
+        <div class="v-main">AA6020 国外现货可得；国内只能走"进口分装现货 + 按美标成分定制"两条路径。</div>
+        <div class="v-sub">国外有 4 家以上现货渠道可小批量采购 6020-T8 冷精整圆棒；国内 GB/T 3190-2020《变形铝及铝合金化学成分》与 GB/T 34493-2017《易切削铝合金挤压棒材》均未收录 6020（两份标准全文已逐项核验），国产材料只能按 AA/ASTM B211 成分签技术协议定制。</div>
+      </div>
+
+      <div class="top3">
+        <div class="rank-row">
+          <div class="no">01</div>
+          <div class="who"><div class="name">东莞润华<span style="font-weight:400;color:var(--gray)">（广东润华轻合金）</span></div><div class="path">大陆自产 · 拉拔棒/研磨棒 T8/T6</div></div>
+          <div class="why"><b>T8 圆棒样品已于 09-10 寄出</b>（顺丰 SF1570214124797），全部渠道中进度最快的实物验证路径。</div>
+          <div class="caution">MOQ / 价格未谈</div>
+        </div>
+        <div class="rank-row">
+          <div class="no">02</div>
+          <div class="who"><div class="name">A.M. Castle<span style="font-weight:400;color:var(--gray)">（上海仓）</span></div><div class="path">进口分销 · 冷精整圆棒 9.5–63.5 mm</div></div>
+          <div class="why"><b>上海设有仓库</b>，进口交付路径最短，规格完整覆盖目标直径区间，已联系待报价。</div>
+          <div class="caution">报价未回</div>
+        </div>
+        <div class="rank-row">
+          <div class="no">03</div>
+          <div class="who"><div class="name">广州番禺飞马</div><div class="path">进口分销 · 自称美铝授权 · 冷拔 T8</div></div>
+          <div class="why"><b>寄样沟通中</b>，样品验证可继续推进。</div>
+          <div class="caution">生产已转至韩国工厂，<b>订货周期 4–5 个月</b>，仅适合样品验证</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 01 材料简介 ================= -->
+    <section id="s1">
+      <div class="sec-head"><div class="sec-no">01</div><h2>AA6020 材料简介</h2></div>
+      <p class="lede">AA6020（UNS A96020）是美铝（Alcoa）以 UltrAlloy® 6020 商标推出的<b>无铅易切削 6xxx 系变形铝合金</b>，以 Sn（0.9–1.5%）替代 Pb 实现易切削性，是 2011、6262 等含铅易切削合金的 RoHS 合规替代方案，典型应用于汽车液压件、制动活塞、连接器等走心机精密零件。其突出特点是<b>切削性与阳极氧化响应兼得</b>：A 级切削性（无铅体系最高评级），且"易接受各类阳极氧化膜"（原厂数据表原文结论），这是本项目选其替代 6061-T6 的核心原因。</p>
+
+      <div class="table-wrap">
+      <table class="slim">
+        <thead><tr><th>指标</th><th class="num">T8（目标状态）</th><th class="num">T6/T651（备选）</th><th>口径</th></tr></thead>
+        <tbody>
+          <tr><td>抗拉强度（最小值）</td><td class="num hl">296 / 290 / 269 MPa</td><td class="num">262 MPa</td><td class="src src-orig">原厂 · 按截面三档</td></tr>
+          <tr><td>屈服强度 0.2%（最小值）</td><td class="num hl">276 / 269 / 248 MPa</td><td class="num">241 MPa</td><td class="src src-orig">原厂 · 同上分档</td></tr>
+          <tr><td>延伸率（最小值）</td><td class="num hl">≥12%</td><td class="num">≥10%</td><td class="src src-orig">原厂</td></tr>
+          <tr><td>布氏硬度（典型值）</td><td class="num">HB 100</td><td class="num">HB 95</td><td class="src src-orig">原厂</td></tr>
+          <tr><td>密度</td><td class="num" colspan="2">2.71 g/cm³（0.098 lb/in³）</td><td class="src src-orig">原厂</td></tr>
+          <tr><td>电导率（典型值）</td><td class="num" colspan="2">46% IACS</td><td class="src src-orig">原厂</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="footnote"><b>目标直径对照</b>：Ø25–64 mm 落在第 2–3 档，验收口径为抗拉 ≥290 MPa（≤50.8 mm）/ ≥269 MPa（>50.8 mm），屈服 ≥269 / ≥248 MPa，延伸率 ≥12%。数据基准：<a href="https://www.elmaterial.com.cn/Doc/%E9%93%9D%E5%90%88%E9%87%916020%E6%9D%90%E6%96%99%E4%BB%8B%E7%BB%8D.pdf">Alcoa UltrAlloy® 6020 原厂数据表</a>（与 ASTM B211/B211M 一致，另见 <a href="http://www.tokais.net/lvhejin/8421.html">钢铁之家 ASTM B211 6020</a>）。</div>
+    </section>
+
+    <!-- ================= 02 筛选漏斗 ================= -->
+    <section id="s2">
+      <div class="sec-head"><div class="sec-no">02</div><h2>筛选漏斗总览</h2></div>
+      <div class="funnel">
+        <div class="f-row"><div class="f-num">23</div><div class="f-bar w100"><span>全网候选（国内 13 + 国外 10）</span></div><div class="f-cond">公开渠道出现"6020"牌号或明确可定制易切削 6xxx</div></div>
+        <div class="f-row"><div class="f-num">17</div><div class="f-bar w74"><span>有 6020 直接证据</span></div><div class="f-cond">已建立双向联系（电话 / 邮件 / 表单有响应）</div></div>
+        <div class="f-row"><div class="f-num">8</div><div class="f-bar w48"><span>已联系</span></div><div class="f-cond">进入实物验证流程（寄样 / 提供检测资料）</div></div>
+        <div class="f-row"><div class="f-num">3</div><div class="f-bar w26"><span>已寄样/已提供资料</span></div><div class="f-cond">润华-样品在途 ｜ 元泰-成分单已收但终止 ｜ 飞马-寄样沟通中</div></div>
+        <div class="f-row final"><div class="f-num">3</div><div class="f-bar w26f"><span>当前可推进</span></div><div class="f-cond">润华（自产）｜ Castle 上海（进口）｜ 飞马（进口，周期 4–5 个月）</div></div>
+      </div>
+      <div class="footnote"><b>淘汰主因</b>：第一层→第二层淘汰 6 家（证据不足或仅 B2B 营销页面）；已联系→可推进淘汰 5 家，其中 2 家因起订量与样品条件无法满足打样阶段需求而退出（元泰、凤铝），3 家处于"已联系待资料"的停滞状态（正盛、赛蒙、东业大拓）。</div>
+    </section>
+
+    <!-- ================= 03 供应商全览 ================= -->
+    <section id="s3">
+      <div class="sec-head"><div class="sec-no">03</div><h2>第一层：供应商可获得性全览</h2></div>
+
+      <div class="rule">
+        <b>力学性能填写规则</b>：优先级为 <b>对方提供的实测值 ＞ 官网/原厂公开数据 ＞ 标准值（<span class="src src-std">†</span>）</b>。标准值即 Alcoa 原厂数据表（与 ASTM B211/B211M 一致）T8 分档最小值，见第 01 节；目标直径 25–64 mm 跨两档，表中 "≥290 / ≥269" 含义为 ≤50.8 mm / >50.8 mm 两档最小值。
+      </div>
+
+      <div class="rule">
+        <b>价格填写规则</b>：6020 全部为询价制，无一家供应商给出正式报价。价格列不再保留"需询价"，统一填入下列有来源的市场参考区间并标"参考（推断/折算）"——<b>均为市场口径推断，非供应商报价</b>，正式价格以询价结果为准：
+        <ul>
+          <li><b>国内现货/分销（公斤级）</b>：东莞现货市场同规格走心机棒 6061-T6 精抽 ¥19.2–25/kg、2011-T4 高精棒 ¥24–28.5/kg；6020-T8 精拉棒同平台挂"面议"。6020 属进口/小众牌号，<b>参考区间 ¥25–40/kg（推断值）</b>　<a href="https://m.gys.cn/search/riw4exo.shtml">供应商网 6020-T8 精拉棒页</a></li>
+          <li><b>国内自产定制（吨位级）</b>：铝锭基准 24.2 元/kg（长江现货 24240 元/吨，2026-09-11），加挤压+冷精整加工费，<b>出厂参考 ¥26–35/kg（推断值）</b>　<a href="https://market.cnal.com/">世铝网行情中心</a></li>
+          <li><b>国外现货（美国分销端零售）</b>：小批量零售为公开标价，以 Kmac Distribution 价目为例——6020-T8 2.000"×72" 定尺 $1,009.53/支、0.375"×72" $100.13/支，按密度 0.098 lb/in³ 折算约 <b>US$100–280/kg（折算值，规格越小单公斤价越高）</b>；批量价需询价　<a href="https://kmac-distribution.com/aluminum/6020-rods.htm">Kmac 6020 价目页</a></li>
+          <li><b>国外批量（中国产出口）</b>：6020-T8 铝棒出口吨位报价 <b>US$3,400–3,537/吨（约 US$3.4–3.5/kg）</b>　<a href="https://m.made-in-china.com/product/Hot-Selling-Aluminum-Rod-Bar-12mm-Aluminum-Rod-Bar-6020-T8-Aluminum-Rod-2029937992.html">Made-in-China 报价页</a></li>
+        </ul>
+      </div>
+
+      <h3><span class="h3-no">3.1</span>国内供应商（含中国台湾，共 13 家）— 自产 6 家</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>供应商</th><th>地区</th><th>6020 执行标准</th><th class="num">抗拉 MPa</th><th class="num">屈服 MPa</th><th class="num">延伸率</th><th>MOQ</th><th class="num">价格</th><th>周期</th><th>备注</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="hl">东莞市润华铝业<span style="font-weight:400;color:var(--gray)">（广东润华轻合金）</span></td><td>广东东莞</td><td>待确认（预计按 AA 成分定制）</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>未披露</td><td class="num">参考 ¥25–40/kg<span class="src src-std">推断</span></td><td class="red">样品已寄出</td><td>拉拔棒/研磨棒，T8/T6 圆棒，可取样 200 mm；<b>样品 09-10 已寄出</b>，实测值随样补充</td><td><a href="http://www.runhuagroup.com/company.html">官网</a></td></tr>
+          <tr><td>2</td><td class="hl">元泰高导材料（山西）</td><td>山西吕梁</td><td>官网明示 6020 含 Sn、Bi（按 AA 成分）</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td class="hl">20 吨</td><td class="num">参考 ¥26–35/kg<span class="src src-std">推断</span></td><td>—</td><td>圆铸棒/挤压坯；成分检测单已提供（仅成分，无力学实测）；仅能提供头尾角料，<b>09-08 已终止</b></td><td><a href="https://www.yuantai-alu.com/6-xi-lv-he-jin/">官网 6 系页</a></td></tr>
+          <tr><td>3</td><td class="hl">广东凤铝铝业</td><td>广东佛山</td><td>无 6020；可定制 6043（GB/T 34493 牌号）</td><td class="num">—（无 6020）</td><td class="num">—</td><td class="num">—</td><td class="hl">约 20 吨/炉</td><td class="num">参考 ¥26–35/kg<span class="src src-std">推断</span></td><td>—</td><td>挤压棒材；6043 无现货无留样，小批量样品无法提供，<b>当前不匹配</b></td><td><a href="https://www.fenglu-alu.com/">官网</a></td></tr>
+          <tr><td>4</td><td class="hl">广东豪美新材（002988）*</td><td>广东清远</td><td>未公开宣称 6020，按能力推断列为定制候选*</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>预计吨位级</td><td class="num">参考 ¥26–35/kg<span class="src src-std">推断</span></td><td>需询价</td><td>尚未建立联系</td><td><a href="https://pdf.dfcfw.com/pdf/H2_AN201910151368777203_1.pdf">招股书</a></td></tr>
+          <tr><td>5</td><td class="hl">东莞市欧标合金制品</td><td>广东东莞</td><td>推广文明示可产 6020/6262/6026/6026LF</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 ¥25–40/kg<span class="src src-std">推断</span></td><td>需询价</td><td>自述下辖熔铸+挤压车间，可信度★★★</td><td><a href="https://news.sohu.com/a/832320972_121610213">搜狐推广页</a></td></tr>
+          <tr><td>6</td><td class="hl">正盛工业（Chainson）</td><td>中国台湾高雄</td><td>T8 列于其规格表</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 ¥26–35/kg<span class="src src-std">自产口径·推断</span></td><td>需询价</td><td>挤压/精抽圆棒 4–177.8 mm；已联系待资料</td><td><a href="https://www.chainson.com.tw/aluminum_alloy.php">官网</a></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="footnote">* <b>豪美新材入选证据链（能力推断，非直接证据）</b>：① 该公司为 GB/T 34493-2017《易切削铝合金挤压棒材》主持起草单位，该标准牌号表覆盖 6023/6026/6043 等与 6020 同属 Sn/Bi 系易切削 6xxx 的牌号，表明其具备同类合金的熔铸与挤压工艺能力；② 招股说明书披露其有含铋易切削铝合金在研专利。综上推断其具备按 6020 成分定制的技术基础，实际可制性需询价实证。</div>
+
+      <h3><span class="h3-no">3.1</span>国内供应商 — 分销/现货 7 家</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>供应商</th><th>地区</th><th>6020 执行标准</th><th class="num">抗拉 MPa</th><th class="num">屈服 MPa</th><th class="num">延伸率</th><th>MOQ</th><th class="num">价格</th><th>周期</th><th>备注</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="hl">上海赛蒙金属材料</td><td>上海嘉定</td><td>美铝 UltrAlloy 6020 数据表存档方（ASTM B211）</td><td class="num">296/290/269 <span class="src src-web">官网存档</span></td><td class="num">276/269/248 <span class="src src-web">官网存档</span></td><td class="num">≥12% <span class="src src-web">官网存档</span></td><td>需询价</td><td class="num">参考 ¥25–40/kg<span class="src src-std">推断</span></td><td>需询价</td><td>已联系待资料；是否仍在售 6020 需确认</td><td><a href="https://www.elmaterial.com.cn/Doc/%E9%93%9D%E5%90%88%E9%87%916020%E6%9D%90%E6%96%99%E4%BB%8B%E7%BB%8D.pdf">数据表存档</a></td></tr>
+          <tr><td>2</td><td class="hl">广州番禺飞马材料贸易</td><td>广东广州</td><td>进口冷拔/挤压棒，列明 6020（ASTM B211）</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 ¥25–40/kg<span class="src src-std">推断</span></td><td class="red">订货 4–5 个月<span style="font-weight:400;color:var(--gray)">（韩国工厂）</span></td><td>自称美铝授权、AS9120；受中美关系影响合作生产转至韩国工厂；寄样沟通中</td><td><a href="http://www.pyfeima.com.cn/product1.htm">官网产品页</a></td></tr>
+          <tr><td>3</td><td class="hl">东莞东业大拓金属<span style="font-weight:400;color:var(--gray)">（港资）</span></td><td>广东东莞</td><td>美铝系 6020（ASTM B211）</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 ¥25–40/kg<span class="src src-std">推断</span></td><td>需询价</td><td>圆/方/扁/六角棒 3–400 mm，可免费裁切；已联系待资料，T8 待确认</td><td><a href="https://hkdydt.cnal.com/product/detail-13360587.shtml">世铝网商铺</a></td></tr>
+          <tr><td>4</td><td class="hl">东莞市弘立铝业</td><td>广东东莞</td><td>6020 铝棒现货（美标）</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 ¥25–40/kg<span class="src src-std">推断</span></td><td>现货</td><td>兼做 6026/6262/2011 无铅易切削棒、走心机料；需索样光谱验证</td><td><a href="https://hlly1688.cnal.com/product-512668.shtml">产品页</a></td></tr>
+          <tr><td>5</td><td class="hl">东莞市极利金属材料</td><td>广东东莞</td><td>6020-T8（B2B 声称）</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 ¥25–40/kg<span class="src src-std">推断</span></td><td>现货</td><td>可信度★★，需索样验证</td><td><a href="https://www.cnal.com/product/37098242.shtml">世铝网页</a></td></tr>
+          <tr><td>6</td><td class="hl">上海威朗德铝业</td><td>上海</td><td>6020 板/棒 O/T6/T651（B2B 声称）</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 ¥25–40/kg<span class="src src-std">推断</span></td><td>现货</td><td>SEO 页面风格，可信度★★</td><td><a href="https://www.cnal.com/product/37899645.shtml">世铝网页</a></td></tr>
+          <tr><td>7</td><td class="hl">上海毅凯金属制品</td><td>上海</td><td>牌号清单含 6020</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 ¥25–40/kg<span class="src src-std">推断</span></td><td>现货</td><td>主营西南铝及进口铝现货 2000 余吨</td><td><a href="https://m.iyunhui.com/al/product-208448/">云汇商铺</a></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3><span class="h3-no">3.2</span>国外供应商（共 10 家，含 2 家替代牌号生产商）— 自产 3 家</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>供应商</th><th>国家</th><th>6020 执行标准</th><th class="num">抗拉 MPa</th><th class="num">屈服 MPa</th><th class="num">延伸率</th><th>MOQ</th><th class="num">价格</th><th>周期</th><th>备注</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="hl">Alcoa（原厂）</td><td>美国</td><td>AA 注册 + ASTM B211（UltrAlloy® 6020 商标持有者）</td><td class="num hl">296/290/269 <span class="src src-orig">原厂·三档</span></td><td class="num hl">276/269/248 <span class="src src-orig">原厂</span></td><td class="num hl">≥12% <span class="src src-orig">原厂</span></td><td>批量合同制</td><td class="num">合同价（未公开）</td><td>未公开</td><td>不零售，走 AlcoaDirect B2B 平台；现货经分销网络流通</td><td><a href="https://www.alcoadirect.com/">AlcoaDirect</a>　<a href="https://www.lookpolymers.com/pdf/Alcoa-UltrAlloy-6020-T8-Aluminum.pdf">原厂数据表</a></td></tr>
+          <tr><td>2</td><td class="hl">Eural Gnutti<span style="font-weight:400;color:var(--gray)">（替代牌号 EN AW-6026LF）</span></td><td>意大利</td><td>EN AW-6026LF（EN 573-3），官方列为 6020 替代牌号</td><td class="num hl">≥345 <span class="src src-orig">原厂</span></td><td class="num hl">≥315 <span class="src src-orig">原厂</span></td><td class="num">见原厂数据表（HB 95）</td><td>需询价（经欧洲代理）</td><td class="num">参考 US$3.4–3.5/kg<span class="src src-std">批量口径·推断</span></td><td>需询价</td><td>无铅无 Sn（Bi 系），规避 Sn 热脆风险；拉拔圆棒 6–76.2 mm（T6/T8/T9）；未找到对华直销渠道</td><td><a href="https://www.eural.com/wp-content/uploads/Eural-6026LF-EN.pdf">Eural 6026LF 数据表</a></td></tr>
+          <tr><td>3</td><td class="hl">Impol<span style="font-weight:400;color:var(--gray)">（替代牌号 EN AW-6026/6026LF）</span></td><td>斯洛文尼亚</td><td>EN AW-6026/6026LF</td><td class="num">—（仅产替代牌号）</td><td class="num">—</td><td class="num">—</td><td>需询价</td><td class="num">参考 US$3.4–3.5/kg<span class="src src-std">批量口径·推断</span></td><td>需询价</td><td>获奔驰/大众/宝马认证；不产 6020 本身；未找到对华渠道</td><td><a href="https://www.impol.com/products/extruded-products/rods-bars-and-tubes/">官网棒材页</a></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3><span class="h3-no">3.2</span>国外供应商 — 分销/现货 7 家</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>供应商</th><th>国家</th><th>6020 执行标准</th><th class="num">抗拉 MPa</th><th class="num">屈服 MPa</th><th class="num">延伸率</th><th>MOQ</th><th class="num">价格</th><th>周期</th><th>备注</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="hl">Anchor Metals Group</td><td>美国</td><td>ASTM B211 6020-T8</td><td class="num">365 <span class="src src-web">官网典型 53 ksi</span></td><td class="num">331 <span class="src src-web">官网典型 48 ksi</span></td><td class="num">8% <span class="src src-web">官网典型</span></td><td class="red">无 MOQ</td><td class="num">参考 US$100–280/kg<span class="src src-std">零售折算</span></td><td class="red">2–3 天发货</td><td>直径 0.5"–3.125"（12.7–79.4 mm）15 种规格，免运费、免费切割、随单附 MTR；选规格后 1 工作日内报价；<b>小批量打样首选</b></td><td><a href="https://anchormetalsgroup.com/product/6020-t8-ultralloy-round-rod">产品页</a></td></tr>
+          <tr><td>2</td><td class="hl">A.M. Castle Metals</td><td>美国<span style="color:var(--gray)">（上海设仓）</span></td><td>6020 bar（ASTM B211）</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 ¥25–40/kg<span class="src src-std">国内现货口径·推断</span></td><td>上海仓现货路径</td><td>仓储覆盖美/加/墨/英/法/新加坡/<b>上海</b>；上海公司已联系待报价</td><td><a href="https://www.castlemetals.com/metals/aluminum/c/aluminum">官网</a>　<a href="https://www.amcastle.com/request-a-quote/">询价入口</a></td></tr>
+          <tr><td>3</td><td class="hl">Spectrum Metals</td><td>美国</td><td>ASTM B211 6020-T8，EN10204/3.1 证书</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 US$100–280/kg<span class="src src-std">零售折算</span></td><td>需询价</td><td>5/16"–2"（7.9–50.8 mm）26 种常备车削规格，12 ft 定尺</td><td><a href="https://www.spectrummetalsinc.com/6020t8.html">产品页</a></td></tr>
+          <tr><td>4</td><td class="hl">Copper and Brass Sales<span style="font-weight:400;color:var(--gray)">（thyssenkrupp Materials NA）</span></td><td>美国</td><td>ASTM B211 6020-T8</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>支持在线单件购买</td><td class="num">参考 US$100–280/kg<span class="src src-std">零售折算·购物车可见实价</span></td><td>需询价</td><td>materialsplus.com 可在线下单 1.000" T8 冷精整圆棒</td><td><a href="https://materialsplus.com/products/aluminum/6020/round/1-000/buy/ALRD00074">电商页</a></td></tr>
+          <tr><td>5</td><td class="hl">Continental Steel &amp; Tube</td><td>美国</td><td>6020 棒/杆/管（推荐 T8）</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 US$100–280/kg<span class="src src-std">零售折算</span></td><td>需询价</td><td>页面明确推荐 T8 状态残余应力控制</td><td><a href="https://continentalsteel.com/aluminum/grades/alloy-6020/">牌号页</a></td></tr>
+          <tr><td>6</td><td class="hl">AMS Resources</td><td>美国</td><td>6020 圆/方/矩形棒、管</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 US$100–280/kg<span class="src src-std">零售折算</span></td><td>需询价</td><td>信息较少</td><td><a href="https://amsresources.com/6020-aluminum/">牌号页</a></td></tr>
+          <tr><td>7</td><td class="hl">Millennium Metals</td><td>美国</td><td>铝类目录列 6020</td><td class="num">≥290/≥269 <span class="src src-std">†</span></td><td class="num">≥269/≥248 <span class="src src-std">†</span></td><td class="num">≥12% <span class="src src-std">†</span></td><td>需询价</td><td class="num">参考 US$100–280/kg<span class="src src-std">零售折算</span></td><td>需询价</td><td>信息较少</td><td><a href="https://www.millennium-metals.com/product-category/aluminum/">目录页</a></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="footnote"><b>国外候选核实中明确排除的</b>（公开目录无 6020，防止后续误查）：Online Metals、Speedy Metals、Metals Depot、Midwest Steel &amp; Aluminum、Kaiser（其无铅易切削产品为 RoHS 版 2011）、Aleris/Novelis（板带为主）、Hydro。</div>
+
+      <h3><span class="h3-no">3.3</span>大湾区合集（珠三角九市 + 港澳，共 8 家）</h3>
+      <p class="note">大湾区物流半径小、可当天看厂验货，是样品验证阶段的优先池。</p>
+      <div class="table-wrap">
+      <table class="slim">
+        <thead><tr><th>#</th><th>自产（4 家）</th><th>城市</th><th>一句话状态</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="hl">东莞润华（广东润华轻合金）</td><td>东莞</td><td class="red">样品 09-10 已寄出，大湾区第一优先</td></tr>
+          <tr><td>2</td><td class="hl">广东凤铝</td><td>佛山</td><td>仅 6043、20 吨/炉，当前不匹配</td></tr>
+          <tr><td>3</td><td class="hl">广东豪美新材</td><td>清远</td><td>按能力推断列为定制候选（证据链见 §3.1），尚未建立联系</td></tr>
+          <tr><td>4</td><td class="hl">东莞欧标合金</td><td>东莞</td><td>推广页明示可产 6020，未联系</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="table-wrap">
+      <table class="slim">
+        <thead><tr><th>#</th><th>分销/现货（4 家）</th><th>城市</th><th>一句话状态</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="hl">广州番禺飞马</td><td>广州</td><td>寄样沟通中；订货周期 4–5 个月（韩国工厂）</td></tr>
+          <tr><td>2</td><td class="hl">东莞东业大拓（港资）</td><td>东莞</td><td>已联系待资料，自称 Alcoa 授权</td></tr>
+          <tr><td>3</td><td class="hl">东莞弘立铝业</td><td>东莞</td><td>6020 现货声称，需索样光谱验证</td></tr>
+          <tr><td>4</td><td class="hl">东莞极利金属</td><td>东莞</td><td>可信度低，仅作备胎</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="footnote"><b>大湾区结论</b>：8 家中 3 家已进入实物验证流程（润华、飞马、东业大拓），自产 4 家里 1 家因起订量门槛暂不适合打样阶段（凤铝 20 吨/炉）、2 家尚未联系（豪美、欧标），样品阶段的可得性实际由"自产 1 家（润华）+ 分销 2 家"支撑。</div>
+    </section>
+
+    <!-- ================= 04 联系实录 ================= -->
+    <section id="s4">
+      <div class="sec-head"><div class="sec-no">04</div><h2>第二层：联系情况实录（8 家，截至 2026-09-14）</h2></div>
+      <p><a class="live-link" href="https://doc.weixin.qq.com/sheet/e3_ATkAKwaKAGoCNJC70MC8pTJKe45Av?scode=AIIArwf9AAcBVXQgfpATkAKwaKAGo&amp;tab=000001">↗ 供应商联系进度记录（腾讯文档在线表格，实时更新）</a></p>
+
+      <h3><span class="h3-no">4.1</span>自产类（4 家）</h3>
+
+      <div class="contact">
+        <div class="c-head"><span class="c-no">01</span><span class="c-name">东莞市润华铝业有限公司（广东润华轻合金）</span><span class="c-status red">当前进度最快</span></div>
+        <div class="c-row"><span class="c-k">当前进度</span><span>样品已于 2026-09-10 寄出（顺丰 SF1570214124797），在途</span></div>
+        <div class="c-row"><span class="c-k">联系结果</span><span>可取样 T8 圆棒 200 mm；产品形态为拉拔棒/研磨棒（T8/T6）</span></div>
+        <div class="c-row"><span class="c-k">资料到位</span><span>化学成分 / 力学性能实测 / 金相组织——均待提供（随样品验证后补充）</span></div>
+        <div class="c-row"><span class="c-k">单价/MOQ/周期</span><span>均未披露，待样品验证通过后谈</span></div>
+        <div class="c-row"><span class="c-k">下一步</span><span>样品到货 → 成分光谱复验 + 氧化打样验证 → 通过后谈 MOQ 与价格</span></div>
+      </div>
+
+      <div class="contact">
+        <div class="c-head"><span class="c-no">02</span><span class="c-name">元泰高导材料（山西）有限公司</span><span class="c-status">已终止</span></div>
+        <div class="c-row"><span class="c-k">当前进度</span><span>已回复（09-07 提供成分检测单）；09-08 确认仅能提供头尾角料</span></div>
+        <div class="c-row"><span class="c-k">终止原因</span><span>角料无法满足后续氧化验证要求，工程师评估后不接受该样品，本次沟通终止</span></div>
+        <div class="c-row"><span class="c-k">基础信息</span><span>圆铸棒/挤压坯（铸态），MOQ 20 吨</span></div>
+        <div class="c-row"><span class="c-k">经验记录</span><span>上游熔铸厂的能力边界在"成分"，不在"成品棒+样品服务"；后续如重启国产熔铸定制，需在询价时先确认能否提供成品规格样品</span></div>
+      </div>
+
+      <div class="contact">
+        <div class="c-head"><span class="c-no">03</span><span class="c-name">广东凤铝铝业有限公司（三水基地）</span><span class="c-status">方向不匹配</span></div>
+        <div class="c-row"><span class="c-k">当前进度</span><span>已联系，沟通的是 6043（非 6020）</span></div>
+        <div class="c-row"><span class="c-k">未推进原因</span><span>6043 可定制生产但无现货/留样，单炉起订约 20 吨，小批量样品无法提供</span></div>
+        <div class="c-row"><span class="c-k">判断</span><span>自产龙头的产线逻辑是"吨位换定制"，与打样阶段需求不匹配；6020 国产化谈判应放到批量阶段再重启</span></div>
+      </div>
+
+      <div class="contact">
+        <div class="c-head"><span class="c-no">04</span><span class="c-name">正盛工业股份有限公司（Chainson，台湾高雄）</span><span class="c-status">停滞</span></div>
+        <div class="c-row"><span class="c-k">当前进度</span><span>已联系，无实质回复</span></div>
+        <div class="c-row"><span class="c-k">基础信息</span><span>挤压/精抽圆棒，T8 列于其规格表，直径 4–177.8 mm</span></div>
+        <div class="c-row"><span class="c-k">下一步</span><span>若需第二家自产备选，可追一封邮件；否则维持观察</span></div>
+      </div>
+
+      <h3><span class="h3-no">4.2</span>代理/分销类（4 家）</h3>
+
+      <div class="contact">
+        <div class="c-head"><span class="c-no">05</span><span class="c-name">A.M. Castle（上海）</span><span class="c-status red">进口路径最短</span></div>
+        <div class="c-row"><span class="c-k">当前进度</span><span>已联系（在线询价表单 + 电话 +86 21 3876 2981），待报价</span></div>
+        <div class="c-row"><span class="c-k">基础信息</span><span>6020 冷精整圆棒 T8，3/8–2-1/2 in（约 9.5–63.5 mm）——<b>完整覆盖目标直径区间</b></span></div>
+        <div class="c-row"><span class="c-k">合作条件</span><span>跨国分销商，上海设仓，交付与售后在境内完成，适合作为进口现货主渠道</span></div>
+        <div class="c-row"><span class="c-k">下一步</span><span>催报价 + 确认上海仓 6020-T8 现货规格与单价</span></div>
+      </div>
+
+      <div class="contact">
+        <div class="c-head"><span class="c-no">06</span><span class="c-name">广州番禺飞马材料贸易</span><span class="c-status">寄样沟通中 · 批量周期拉长</span></div>
+        <div class="c-row"><span class="c-k">当前进度</span><span>已沟通寄样品事宜，待反馈快递单号</span></div>
+        <div class="c-row"><span class="c-k">基础信息</span><span>圆棒，冷拔 F/O/T5/T6/T8/T9/T651、挤压 F/O/T5/T6/T6511；自称 2005 年起获美铝授权、AS9120 认证</span></div>
+        <div class="c-row"><span class="c-k">合作条件</span><span>受中美关系影响，<b>合作生产厂家已转至韩国工厂，订货周期 4–5 个月</b>；价格未披露；授权资质需索授权书核实</span></div>
+        <div class="c-row"><span class="c-k">判断</span><span>样品验证不受影响可继续推进；但 4–5 个月的订货周期使其不适合作为批量供货主渠道</span></div>
+        <div class="c-row"><span class="c-k">下一步</span><span>跟催快递单号；样品到后同润华流程复验</span></div>
+      </div>
+
+      <div class="contact">
+        <div class="c-head"><span class="c-no">07</span><span class="c-name">上海赛蒙金属材料</span><span class="c-status">停滞</span></div>
+        <div class="c-row"><span class="c-k">当前进度</span><span>已联系，待资料</span></div>
+        <div class="c-row"><span class="c-k">基础信息</span><span>美铝 UltrAlloy 6020 数据表存档方（T8 冷精整圆棒 0.250–3.250 in 分段、六角棒至 2.000 in）</span></div>
+        <div class="c-row"><span class="c-k">待确认事项</span><span>是否仍在售 6020 未确认（官网当前主打 6061/2024/7075 等航空牌号）</span></div>
+        <div class="c-row"><span class="c-k">下一步</span><span>电话直接确认在售状态与 MOQ，无货则降级为备胎</span></div>
+      </div>
+
+      <div class="contact">
+        <div class="c-head"><span class="c-no">08</span><span class="c-name">东莞东业大拓金属（香港东业大拓旗下）</span><span class="c-status">停滞</span></div>
+        <div class="c-row"><span class="c-k">当前进度</span><span>已联系，待资料</span></div>
+        <div class="c-row"><span class="c-k">基础信息</span><span>港资，自称 Alcoa 授权分销；圆/方/扁/六角棒 3–400 mm，可免费裁切；T8 状态待确认</span></div>
+        <div class="c-row"><span class="c-k">下一步</span><span>确认 6020-T8 现货规格、单价与授权证明；大湾区地理优势可安排上门看货</span></div>
+      </div>
+
+      <h3><span class="h3-no">4.3</span>联系情况汇总表</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>供应商</th><th>分类</th><th>自产/代理</th><th>当前进度</th><th>资料到位</th><th>取样</th><th>MOQ</th><th>价格/周期</th><th>待办</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="hl">东莞润华</td><td class="red">优先推进</td><td>自产</td><td class="hl">样品已寄出（09-10）</td><td>待提供</td><td>能（T8 圆棒 200 mm）</td><td>未披露</td><td>未披露</td><td>样品到货后复验</td></tr>
+          <tr><td>2</td><td class="hl">Castle 上海</td><td class="red">优先推进</td><td>代理</td><td>已联系待报价</td><td>待提供</td><td>待确认</td><td>未披露</td><td>待报价</td><td>催报价</td></tr>
+          <tr><td>3</td><td class="hl">广州飞马</td><td>跟进</td><td>代理</td><td class="hl">寄样沟通中</td><td>待提供</td><td>沟通中</td><td>未披露</td><td class="hl">订货 4–5 个月（韩国工厂）</td><td>跟催快递单号</td></tr>
+          <tr><td>4</td><td class="hl">元泰高导</td><td><s>终止</s></td><td>自产上游</td><td>已回复</td><td>成分单已收</td><td>仅头尾角料</td><td>20 吨</td><td>—</td><td>角料不满足氧化验证，已终止</td></tr>
+          <tr><td>5</td><td class="hl">广东凤铝</td><td>暂缓</td><td>自产</td><td>已联系（谈 6043）</td><td>待提供</td><td>无法提供</td><td>20 吨/炉</td><td>—</td><td>批量阶段再重启</td></tr>
+          <tr><td>6</td><td class="hl">正盛工业</td><td>跟进</td><td>自产</td><td>已联系</td><td>待提供</td><td>待确认</td><td>未披露</td><td>未披露</td><td>无实质回复，可追邮件</td></tr>
+          <tr><td>7</td><td class="hl">上海赛蒙</td><td>观察</td><td>代理</td><td>已联系</td><td>待提供</td><td>待确认</td><td>未披露</td><td>未披露</td><td>电话确认在售状态</td></tr>
+          <tr><td>8</td><td class="hl">东业大拓</td><td>跟进</td><td>代理</td><td>已联系</td><td>待提供</td><td>待确认</td><td>未披露</td><td>未披露</td><td>确认 T8 与授权证明</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- ================= 05 结论与建议 ================= -->
+    <section id="s5">
+      <div class="sec-head"><div class="sec-no">05</div><h2>结论与建议</h2></div>
+
+      <h3><span class="h3-no">5.1</span>结论</h3>
+      <p><b>1. 可获得性</b>：AA6020 国外现货渠道充足（4 家以上可小批量），国内供给分为进口分销现货与自产定制两条路径；国产定制因 6020 未被 GB/T 3190-2020 收录，须按 AA/ASTM B211 成分签技术协议。</p>
+      <p><b>2. 当前实质进展</b>：23 家候选收敛到 3 家可推进（润华、Castle 上海、飞马），其中润华样品已在途，是两条路径中唯一的自产验证线。</p>
+      <p><b>3. 待补强项</b>：自产验证线目前只有润华一条（元泰终止、凤铝起订量不匹配）；飞马订货周期已拉长至 4–5 个月。若润华样品验证未通过，自产路径需重启豪美/欧标的触达。</p>
+
+      <h3><span class="h3-no">5.2</span>建议</h3>
+      <p><b>本周（W38）</b>：签收润华样品并启动成分光谱复验 + 氧化打样；同步跟催飞马快递单号、Castle 报价。</p>
+      <p><b>下周（W39）</b>：若润华样品成分合格，电话谈 MOQ/单价/交期；若不合格，48 小时内启动豪美新材与东莞欧标的首次触达，补足自产备份。</p>
+      <p><b>批量阶段预案</b>：样品验证全部通过后，以 ASTM B211 6020-T8（成分 + 状态 + 力学最小值）为技术协议基准文本，向豪美/凤铝量级自产厂询价，解决 20 吨级 MOQ 的批量成本问题；飞马因 4–5 个月周期仅作样品渠道，不纳入批量供应池。</p>
+      <p><b>验证失败预案</b>：若润华与飞马样品同时验证失败，备选路径为"直接进口 Anchor Metals 现货（成本显著高于国产、周期 2–3 周）"或"重启国产定制谈判（周期 1–2 个月）"，届时提交决策。</p>
+    </section>
+
+    <!-- ================= 06 信息来源 ================= -->
+    <section id="s6">
+      <div class="sec-head"><div class="sec-no">06</div><h2>信息来源</h2></div>
+      <p class="note">本报告全部外部信息来源汇总如下，链接均可点击跳转；供应商联系记录为内部一手信息，见 <a href="https://doc.weixin.qq.com/sheet/e3_ATkAKwaKAGoCNJC70MC8pTJKe45Av?scode=AIIArwf9AAcBVXQgfpATkAKwaKAGo&amp;tab=000001">供应商联系进度记录（腾讯文档）</a>。</p>
+
+      <div class="src-group">
+        <div class="sg-title"><span class="n">6.1</span>标准与材料数据</div>
+        <div class="src-item"><a href="https://www.elmaterial.com.cn/Doc/%E9%93%9D%E5%90%88%E9%87%916020%E6%9D%90%E6%96%99%E4%BB%8B%E7%BB%8D.pdf">Alcoa UltrAlloy® 6020 原厂数据表（上海赛蒙存档，力学性能取值基准）</a></div>
+        <div class="src-item"><a href="https://www.lookpolymers.com/pdf/Alcoa-UltrAlloy-6020-T8-Aluminum.pdf">Alcoa UltrAlloy 6020-T8 原厂数据表（另一网络存档）</a></div>
+        <div class="src-item"><a href="http://www.tokais.net/lvhejin/8421.html">钢铁之家：ASTM B211 6020 铝合金</a></div>
+        <div class="src-item"><a href="https://www.eural.com/wp-content/uploads/Eural-6026LF-EN.pdf">Eural 6026LF 原厂数据表</a></div>
+      </div>
+
+      <div class="src-group">
+        <div class="sg-title"><span class="n">6.2</span>价格与行情</div>
+        <div class="src-item"><a href="https://kmac-distribution.com/aluminum/6020-rods.htm">Kmac Distribution：6020 圆棒公开价目（T8/T9）</a></div>
+        <div class="src-item"><a href="https://m.made-in-china.com/product/Hot-Selling-Aluminum-Rod-Bar-12mm-Aluminum-Rod-Bar-6020-T8-Aluminum-Rod-2029937992.html">Made-in-China：6020-T8 铝棒出口吨位报价</a></div>
+        <div class="src-item"><a href="https://m.gys.cn/search/riw4exo.shtml">供应商网：6020-T8 精拉棒搜索结果</a></div>
+        <div class="src-item"><a href="https://market.cnal.com/">世铝网行情中心（铝锭基准价）</a></div>
+      </div>
+
+      <div class="src-group">
+        <div class="sg-title"><span class="n">6.3</span>国内供应商</div>
+        <div class="src-item"><a href="http://www.runhuagroup.com/company.html">广东润华轻合金（官网）</a></div>
+        <div class="src-item"><a href="https://www.yuantai-alu.com/6-xi-lv-he-jin/">元泰高导材料（官网 6 系页）</a></div>
+        <div class="src-item"><a href="https://www.fenglu-alu.com/">广东凤铝铝业（官网）</a></div>
+        <div class="src-item"><a href="https://pdf.dfcfw.com/pdf/H2_AN201910151368777203_1.pdf">广东豪美新材招股说明书（东方财富 PDF）</a></div>
+        <div class="src-item"><a href="https://news.sohu.com/a/832320972_121610213">东莞市欧标合金制品（搜狐推广页）</a></div>
+        <div class="src-item"><a href="https://www.chainson.com.tw/aluminum_alloy.php">正盛工业 Chainson（官网规格页）</a></div>
+        <div class="src-item"><a href="http://www.pyfeima.com.cn/product1.htm">广州番禺飞马材料贸易（官网产品页）</a></div>
+        <div class="src-item"><a href="https://hkdydt.cnal.com/product/detail-13360587.shtml">东莞东业大拓金属（世铝网商铺）</a></div>
+        <div class="src-item"><a href="https://hlly1688.cnal.com/product-512668.shtml">东莞市弘立铝业（世铝网产品页）</a></div>
+        <div class="src-item"><a href="https://www.cnal.com/product/37098242.shtml">东莞市极利金属材料（世铝网页）</a></div>
+        <div class="src-item"><a href="https://www.cnal.com/product/37899645.shtml">上海威朗德铝业（世铝网页）</a></div>
+        <div class="src-item"><a href="https://m.iyunhui.com/al/product-208448/">上海毅凯金属制品（云汇商铺）</a></div>
+      </div>
+
+      <div class="src-group">
+        <div class="sg-title"><span class="n">6.4</span>国外供应商</div>
+        <div class="src-item"><a href="https://www.alcoadirect.com/">AlcoaDirect（美铝 B2B 平台）</a></div>
+        <div class="src-item"><a href="https://www.impol.com/products/extruded-products/rods-bars-and-tubes/">Impol 棒材产品页</a></div>
+        <div class="src-item"><a href="https://anchormetalsgroup.com/product/6020-t8-ultralloy-round-rod">Anchor Metals Group：6020-T8 圆棒产品页</a></div>
+        <div class="src-item"><a href="https://www.castlemetals.com/metals/aluminum/c/aluminum">A.M. Castle Metals 官网</a></div>
+        <div class="src-item"><a href="https://www.amcastle.com/request-a-quote/">A.M. Castle 在线询价入口</a></div>
+        <div class="src-item"><a href="https://www.spectrummetalsinc.com/6020t8.html">Spectrum Metals：6020-T8 产品页</a></div>
+        <div class="src-item"><a href="https://materialsplus.com/products/aluminum/6020/round/1-000/buy/ALRD00074">Copper and Brass Sales / materialsplus 电商页</a></div>
+        <div class="src-item"><a href="https://continentalsteel.com/aluminum/grades/alloy-6020/">Continental Steel &amp; Tube：6020 牌号页</a></div>
+        <div class="src-item"><a href="https://amsresources.com/6020-aluminum/">AMS Resources：6020 牌号页</a></div>
+        <div class="src-item"><a href="https://www.millennium-metals.com/product-category/aluminum/">Millennium Metals 铝类目录</a></div>
+      </div>
+    </section>
+
+    <!-- ================= 附 数据口径 ================= -->
+    <section id="s7">
+      <div class="sec-head"><div class="sec-no">附</div><h2>数据口径说明</h2></div>
+      <p><b>力学性能填写优先级</b>：对方提供的实测值 ＞ 官网/原厂公开数据 ＞ 标准值（†）。标准值以 Alcoa UltrAlloy® 6020 原厂数据表（与 ASTM B211/B211M 一致）的 T8 分档最小值为准，仅用于供应商能力初筛，不作为验收依据。</p>
+      <p><b>来源取舍说明</b>：材料类二级聚合网站（如 AZoM）给出的 6020-T8 力学性能为单一数值（抗拉≥303 MPa / 屈服≥283 MPa / 延伸率 10%），未按截面尺寸分档，且高于原厂数据表的分档最小值，无法溯源；其化学成分表则与原厂数据表完全一致。凡冲突处，本报告一律以原厂数据表/ASTM B211 为准，故 AZoM 不列入信息来源。</p>
+      <p><b>价格口径</b>：价格为三类——供应商已报价（本报告暂无）、有来源的市场参考（原文数值照录，折算/推断部分已逐处标注）、询价制未公开。表格价格列统一填市场参考区间（标"参考"），<b>均为市场口径推断，非供应商报价，不构成采购依据</b>；MOQ/周期等非价格信息仍需询价确认。</p>
+      <p><b>供应商信息</b>：均来自公开渠道（官网/B2B 平台）与直接联系记录，证据链接见各表"来源"列及第 06 节。</p>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <span>AA6020 SUPPLIER RESEARCH REPORT</span>
+  <span>调研日期 2026-09-14 · 数据截至当日 · 打印友好</span>
+</footer>
+
+</body>
+</html>
